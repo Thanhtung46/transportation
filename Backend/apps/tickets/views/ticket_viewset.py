@@ -1,9 +1,11 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+
+
 
 from apps.tickets.models.ticket import Ticket
 from apps.tickets.serializers.ticket_serializer import TicketSerializer
@@ -11,7 +13,7 @@ from apps.tickets.serializers.ticket_serializer import TicketSerializer
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all().select_related("creator", "assignee")
     serializer_class = TicketSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ["status", "priority", "assignee", "creator"]
     search_fields = ["title", "description"]
