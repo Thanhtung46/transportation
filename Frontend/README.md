@@ -1,50 +1,84 @@
-# Welcome to your Expo app 👋
+# Smart Travel Frontend (Expo + React Native)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Ứng dụng Frontend cho Smart Travel, xây dựng bằng Expo Router, React Native 0.81, React 19, React Query, Zustand. Kết nối tới Backend Django qua REST API.
 
-## Get started
+## 📋 Yêu cầu hệ thống
 
-1. Install dependencies
+- Node.js LTS, npm
+- Expo CLI (sử dụng lệnh `npx expo ...`)
+- Android Studio (Android Emulator) hoặc Xcode (iOS Simulator) nếu chạy giả lập
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## 🚀 Bắt đầu
 
 ```bash
-npm run reset-project
+cd Frontend
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Chạy theo nền tảng:
+- Web: `npm run web`
+- Android: `npm run android`
+- iOS: `npm run ios`
 
-## Learn more
+## 🔗 Cấu hình API Backend
 
-To learn more about developing your project with Expo, look at the following resources:
+API base URL được đặt tại `src/services/api.ts`:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```ts
+const API_BASE_URL = 'http://192.168.16.125:8000/api';
+```
 
-## Join the community
+Hãy sửa `192.168.16.125` thành IP máy chạy Backend của bạn (ví dụ `http://localhost:8000/api` cho Web, hoặc IP LAN cho thiết bị thật/giả lập).
 
-Join our community of developers creating universal apps.
+Các endpoint đang sử dụng (khớp Backend):
+- `POST /auth/register/`, `POST /auth/login/`, `POST /auth/logout/`, `POST /auth/token/refresh/`
+- `GET /auth/profile/`, `POST /auth/profile/change-password/`, `POST /auth/profile/upload-avatar/`
+- `POST /auth/forgot-password/`, `POST /auth/verify-otp/`, `POST /auth/reset-password/`
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 📦 Scripts
+
+```json
+{
+  "start": "expo start",
+  "android": "expo start --android",
+  "ios": "expo start --ios",
+  "web": "expo start --web",
+  "lint": "expo lint",
+  "reset-project": "node ./scripts/reset-project.js"
+}
+```
+
+## 🗂 Cấu trúc chính
+
+```
+Frontend/
+├── app/                 # File-based routing (Expo Router)
+├── src/
+│   ├── services/        # api.ts, authService.ts
+│   ├── features/        # modules (favorites, tickets, transport...)
+│   ├── components/      # UI components
+│   ├── hooks/           # hooks cho theme, color scheme
+│   ├── stores/          # Zustand store (vd: location)
+│   └── lib/             # tiện ích API
+├── assets/              # icon, splash, images
+├── app.json             # cấu hình Expo (icon, splash, maps, web)
+└── README.md
+```
+
+## 🧩 Công nghệ chính
+
+- Expo 54, Expo Router 6, React Native 0.81
+- React Query 5, Axios
+- Zustand state management
+- `expo-maps`, `react-native-maps`
+
+## 📝 Ghi chú phát triển
+
+- Backend mặc định chạy ở `http://localhost:8000`. Khi test trên thiết bị thật/emulator, dùng IP LAN: `http://<ip-may-ban>:8000`.
+- CORS đã bật phía Backend cho địa chỉ Expo dev (`19000/19006`).
+- Nếu gặp lỗi mạng trên Android Emulator, thử `http://10.0.2.2:8000` (Android) hoặc `http://localhost:8000` trên iOS Simulator.
+
+---
+
+Sau khi cập nhật `API_BASE_URL`, bạn có thể đăng nhập/đăng ký và sử dụng các màn hình trong `app/` (auth, tabs, profile, tickets...).
