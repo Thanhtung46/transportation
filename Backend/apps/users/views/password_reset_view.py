@@ -14,10 +14,10 @@ from ..serializers.password_reset_serializer import (
     VerifyOTPSerializer,
     ResetPasswordSerializer
 )
+@csrf_exempt  # 👈 THÊM DÒNG NÀY
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
-@csrf_exempt  # 👈 THÊM DÒNG NÀY
 def forgot_password(request):
     """Gửi OTP đến email để reset password"""
     serializer = ForgotPasswordSerializer(data=request.data)
@@ -47,8 +47,8 @@ def forgot_password(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
 @csrf_exempt  # 👈 THÊM
+@permission_classes([AllowAny])
 def verify_otp(request):
     """Xác thực OTP"""
     serializer = VerifyOTPSerializer(data=request.data)
@@ -65,8 +65,8 @@ def verify_otp(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
 @csrf_exempt  # 👈 THÊM
+@permission_classes([AllowAny])
 def reset_password(request):
     """Reset password với OTP đã xác thực"""
     serializer = ResetPasswordSerializer(data=request.data)

@@ -180,12 +180,12 @@ async verifyForgotPasswordOTP(email: string, otp: string): Promise<ApiResponse> 
     // QUAN TRỌNG: Gửi cả email và OTP
     const requestData = {
       email: email,  // ĐẢM BẢO CÓ EMAIL
-      otp: otp
+      otp_code: otp
     };
 
     console.log('📤 [DEBUG] Request payload:', requestData);
     
-    const response = await api.post('/auth/verify-forgot-password-otp/', requestData);
+    const response = await api.post('/auth/verify-otp/', requestData);
     
     console.log('✅ [DEBUG] OTP Verified Success:', response.data);
     
