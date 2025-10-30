@@ -20,8 +20,8 @@ urlpatterns = [
     path('verify/email/send/', send_email_verification, name='send-email-verification'),
     path('verify/email/', verify_email, name='verify-email'),
     
-    # 👇 SỬA TÊN ENDPOINT - từ 'password/forgot/' thành 'forgot-password/'
+    # Password Reset - 👈 KIỂM TRA TÊN ENDPOINTS
     path('forgot-password/', forgot_password, name='forgot-password'),
-    path('verify-otp/', verify_otp, name='verify-otp'),
+    path('verify-otp/', verify_otp, name='verify-otp'),  # 👈 ĐÂY PHẢI KHỚP VỚI FE
     path('reset-password/', reset_password, name='reset-password'),
 ]
