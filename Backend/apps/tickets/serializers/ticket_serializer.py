@@ -1,10 +1,15 @@
 from rest_framework import serializers
-from tickets.models.ticket import Ticket
+from apps.tickets.models.ticket import Ticket
+from django.contrib.auth import get_user_model
+
 
 class TicketSerializer(serializers.ModelSerializer):
     creator = serializers.StringRelatedField(read_only=True)
-    assignee = serializers.PrimaryKeyRelatedField(queryset=None, required=False, allow_null=True)
-
+    assignee = serializers.PrimaryKeyRelatedField(
+        queryset=get_user_model().objects.all(),  # ✅ sửa tại đây
+        required=False,
+        allow_null=True
+    )
     class Meta:
         model = Ticket
         fields = [

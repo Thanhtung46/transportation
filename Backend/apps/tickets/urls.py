@@ -16,7 +16,7 @@ def tickets_home(request):
     })
 
 router = DefaultRouter()
-router.register(r'tickets', TicketViewSet, basename='ticket')
+router.register(r'', TicketViewSet, basename='ticket')
 
 urlpatterns = [
     path('', tickets_home, name='tickets-home'),
