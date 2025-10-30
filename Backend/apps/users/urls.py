@@ -25,3 +25,4 @@ urlpatterns = [
     path('verify-otp/', verify_otp, name='verify-otp'),  # 👈 ĐÂY PHẢI KHỚP VỚI FE
     path('reset-password/', reset_password, name='reset-password'),
 ]
+
