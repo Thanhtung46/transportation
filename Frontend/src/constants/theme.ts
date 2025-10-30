@@ -23,6 +23,11 @@ export const Colors = {
     lightGray: '#f1f5f9',
     cardBackground: '#ffffff',
     headerBackground: '#2563eb',
+    // Gradient colors for auth screens
+    gradientPurple: '#22272B', 
+    gradientOrange: '#F97316', // Orange
+    purple: '#9333EA',
+    orange: '#F97316',
   },
   dark: {
     text: '#ECEDEE',

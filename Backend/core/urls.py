@@ -6,7 +6,9 @@ from django.http import JsonResponse
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-
+from django.views.decorators.csrf import csrf_exempt
+def csrf_exempt_view(view_func):
+    return csrf_exempt(view_func)
 # 👇 Tạo view cho trang chủ
 def home_view(request):
     return JsonResponse({
@@ -56,10 +58,19 @@ urlpatterns = [
     path('api/transports/', include('apps.transports.urls')),
     path('api/tickets/', include('apps.tickets.urls')),
     
+
     # Documentation
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
+def apply_csrf_exempt(pattern_list):
+    for i, pattern in enumerate(pattern_list):
+        if hasattr(pattern, 'callback'):
+            pattern.callback = csrf_exempt(pattern.callback)
+        elif hasattr(pattern, 'url_patterns'):
+            apply_csrf_exempt(pattern.url_patterns)
+    return pattern_list
 
+urlpatterns = apply_csrf_exempt(urlpatterns)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

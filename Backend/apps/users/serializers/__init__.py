@@ -7,3 +7,10 @@ from .user_serializer import (
     EmailVerificationSerializer,
     PhoneVerificationSerializer,
 )
+
+from .password_reset_serializer import (
+    ForgotPasswordSerializer,
+    VerifyOTPSerializer,
+    ResetPasswordSerializer,
+    
+)
