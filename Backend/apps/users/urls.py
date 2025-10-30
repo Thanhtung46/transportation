@@ -2,6 +2,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 from .views.auth_view import *
 from .views.profile_view import *
+from .views.password_reset_view import forgot_password, verify_otp, reset_password
 
 urlpatterns = [
     # Authentication
@@ -18,4 +19,9 @@ urlpatterns = [
     # Verification
     path('verify/email/send/', send_email_verification, name='send-email-verification'),
     path('verify/email/', verify_email, name='verify-email'),
+    
+    # 👇 SỬA TÊN ENDPOINT - từ 'password/forgot/' thành 'forgot-password/'
+    path('forgot-password/', forgot_password, name='forgot-password'),
+    path('verify-otp/', verify_otp, name='verify-otp'),
+    path('reset-password/', reset_password, name='reset-password'),
 ]

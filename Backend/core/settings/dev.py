@@ -12,8 +12,8 @@ DATABASES = {
 }
 # CORS configuration cho React Native
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:19006",
-    "http://127.0.0.1:19006",
+    "http://localhost:8000",
+    "http://0.0.0.0",
 ]
 CORS_ALLOW_ALL_ORIGINS = False
 # REST Framework configuration
