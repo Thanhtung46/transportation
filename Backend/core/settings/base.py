@@ -23,9 +23,10 @@ INSTALLED_APPS = [
     
     # Third party apps
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
     'drf_yasg',
-    
+    'django_filters',
     # # Local apps
 
     # 'apps.users.models.user.User',
@@ -34,6 +35,10 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.transports',
     'apps.tickets',
+
+    #
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -111,6 +116,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',  # Tạm thời cho dễ test
     ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,
 }
 
 # JWT Settings

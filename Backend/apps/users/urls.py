@@ -18,4 +18,4 @@ urlpatterns = [
     # Verification
     path('verify/email/send/', send_email_verification, name='send-email-verification'),
     path('verify/email/', verify_email, name='verify-email'),
-]
+] 
